@@ -1,25 +1,50 @@
-import logo from './logo.svg';
+import { Switch, Route, NavLink } from 'react-router-dom';
 import './App.css';
+import EventosView from './assets/js/EventosView.js';
+import UsuariosView from './assets/js/UsuariosView.js';
+import ApuestasView from './assets/js/ApuestasView.js';
+import DSSView from './assets/js/DSSView.js';
+//import MainMenu from './assets/js/mainMenu.js';
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div className={'mainMenu'}>
+        <NavLink to={'/usuarios'}>
+          <div className={'mainMenuButton'}>
+            <h2>Usuarios</h2>
+          </div>
+        </NavLink>
+        <NavLink to={'/apuestas'}>
+          <div className={'mainMenuButton'}>
+            <h2>Apuestas</h2>
+          </div>
+        </NavLink>
+        <NavLink to={'/eventos'}>
+          <div className={'mainMenuButton'}>
+            <h2>Eventos</h2>
+          </div>
+        </NavLink>
+        <NavLink to={'/DSS'}>
+          <div className={'mainMenuButton'}>
+            <h2>DSS</h2>
+          </div>
+        </NavLink>
+      </div>
+      <div className={'display'}>
+        <Switch>
+          <Route path={'/usuarios'}><UsuariosView/></Route>
+          <Route path={'/apuestas'}><ApuestasView/></Route>
+          <Route path={'/eventos'}><EventosView/></Route>
+          <Route path={'/DSS'}><DSSView/></Route>
+        </Switch>
+      </div>
     </div>
   );
+}
+
+const openUsersMenu = () => {
+  console.log("wiii");
 }
 
 export default App;

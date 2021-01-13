@@ -1,0 +1,26 @@
+{
+    "usuarios" : [{
+        "UsuarioId":"Usuario1",
+        "Nombre":"Mark",
+        "Apellidos":"Bort Tomás",
+        "Edad":"19"
+    },
+    {
+        "UsuarioId":"Usuario2",
+        "Nombre":"Sara",
+        "Apellidos":"Asensi Muñoz",
+        "Edad":"20"
+    },
+    {
+        "UsuarioId":"Usuario3",
+        "Nombre":"Joel",
+        "Apellidos":"Bort Tomás",
+        "Edad":"2"
+    },
+    {
+        "UsuarioId":"Usuario4",
+        "Nombre":"Ruth",
+        "Apellidos":"Bort Lopez-Montenegro",
+        "Edad":"8"
+    }]
+}
