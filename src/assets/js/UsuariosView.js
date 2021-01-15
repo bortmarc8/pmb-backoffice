@@ -38,18 +38,24 @@ class UsuariosView extends Component {
         }
 
         const queryModPwd = (user, lastpwd, newpwd, repeatedNewPwd) => {
+            let correcto = 0;
             if (lastpwd !== newpwd && newpwd === repeatedNewPwd) {
                 axios
-                .post('https://localhost:44342/api/Account/ChangePassword?UsuarioId='+user, {
+                .put('https://localhost:44342/api/Account/ChangePassword?UsuarioId='+user, {
                     "OldPassword": lastpwd,
                     "NewPassword": newpwd,
                     "ConfirmPassword": repeatedNewPwd
                   })
                 .then(function (response) {
-                    console.log("Se ha modificado la contraseña de " + user + " que era " + lastpwd + " a " + newpwd);
+                    correcto = 1;
                 });
+                if (correcto === 1) {
+                    window.alert("Se ha modificado la contraseña correctamente")
+                } else {
+                    window.alert("Ha habido un error, comprueba los parámetros y vuelve a intentaelo")
+                }
             } else {
-                console.log("NO SE HA MODIFICADO la contraseña de " + user + " que era " + lastpwd + " a " + newpwd);
+                window.alert("Ha habido un error: las contraseñas no coinciden o son la misma que la anterior")
             }
         }
 
@@ -92,7 +98,7 @@ class UsuariosView extends Component {
             }
         }
 
-        queryGetDatos();
+        //queryGetDatos();
 
         return ( 
             <div>
@@ -106,6 +112,7 @@ class UsuariosView extends Component {
                             <Column header="Acciones" body={UserBtns}></Column>
                         </DataTable>
                     </div>
+                    <Button onClick={queryGetDatos}>Cargar datos</Button>
                 </div> 
                 <div className="changePwdDialog">
                     <h1>Modificar contraseña</h1>

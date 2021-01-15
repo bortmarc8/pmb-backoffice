@@ -24,10 +24,10 @@
     position:fixed;
     top: 50%;
     left: 50%;
-    width:30em;
-    height:18em;
-    margin-top: -9em; /*set to a negative number 1/2 of your height*/
-    margin-left: -15em; /*set to a negative number 1/2 of your width*/
+    width:40em;
+    height:24em;
+    margin-top: -12em; /*set to a negative number 1/2 of your height*/
+    margin-left: -20em; /*set to a negative number 1/2 of your width*/
     border: 1px solid #ccc;
     background-color: #f3f3f3;
     display: none;
@@ -36,6 +36,45 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    opacity: 0.9;
+}
+
+.editDate {
+    position:fixed;
+    top: 50%;
+    left: 50%;
+    width:40em;
+    height:24em;
+    margin-top: -12em; /*set to a negative number 1/2 of your height*/
+    margin-left: -20em; /*set to a negative number 1/2 of your width*/
+    border: 1px solid #ccc;
+    background-color: #f3f3f3;
+    display: none;
+    padding: 25px;
+    border-radius: 25px;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    opacity: 0.9;
+}
+
+.addNewEvent {
+    position:fixed;
+    top: 50%;
+    left: 50%;
+    width:40em;
+    height:24em;
+    margin-top: -12em; /*set to a negative number 1/2 of your height*/
+    margin-left: -20em; /*set to a negative number 1/2 of your width*/
+    border: 1px solid #ccc;
+    background-color: #f3f3f3;
+    display: none;
+    padding: 25px;
+    border-radius: 25px;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    opacity: 0.9;
 }
 
 .pwd_input {
@@ -90,4 +129,11 @@ tr:nth-child(even) {
 tr:nth-child(odd) {
     background: rgb(239, 239, 239);
 }
-  
+
+@media (max-width: 1401px) {
+
+    .table-wrapper {
+        margin: 10px 10px 10px;
+        box-shadow: 0px 35px 50px rgba( 0, 0, 0, 0.2 );
+    }
+  }

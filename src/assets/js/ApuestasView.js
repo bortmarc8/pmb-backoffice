@@ -4,7 +4,7 @@ import { Component } from 'react';
 class ApuestasView extends Component {
     render() {
       return (
-        <h1></h1>
+        <h1>dsf</h1>
       );
     }
 }
