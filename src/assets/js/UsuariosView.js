@@ -14,17 +14,22 @@ class UsuariosView extends Component {
             userAlterPwd: ""
         }
     }
+    queryGetDatos = () => {
+        axios
+        .get('https://localhost:44342/api/Usuarios/')
+        .then(res => {
+            //console.log(res.data);
+            this.setState({users: res.data}, () => console.log(res.data));
+        });
+    }
+
+    componentDidMount() {
+        this.queryGetDatos();
+    }
   
     render() {
         
-        const queryGetDatos = () => {
-            axios
-            .get('https://localhost:44342/api/Usuarios/')
-            .then(res => {
-                //console.log(res.data);
-                this.setState({users: res.data}, () => console.log(res.data));
-            });
-        }
+
 
         const queryPostDatos = () => {
             axios
@@ -63,7 +68,7 @@ class UsuariosView extends Component {
             axios
             .delete('https://localhost:44342/api/Usuarios/?id=' + id)
             .then(response => {
-                queryGetDatos();
+                this.queryGetDatos();
             });
         }
 
@@ -104,15 +109,14 @@ class UsuariosView extends Component {
             <div>
                 <div className="table-wrapper">
                     <div className="fl-table">
-                        <DataTable class="fl-table" value={this.state.users}>
+                        <DataTable class="fl-table" paginator rows={15} value={this.state.users}>
                             <Column sortable={true} field="UsuarioId" header="ID Usuario" filter filterPlaceholder="UserID"></Column>
                             <Column sortable={true} field="Nombre" header="Nombre" filter filterPlaceholder="Nombre"></Column>
                             <Column sortable={true} field="Apellidos" header="Apellidos" filter filterPlaceholder="Apellidos"></Column>
-                            <Column sortable={true} field="Edad" header="Edad" filter filterType="Numeric" filterPlaceholder="Edad"></Column>
+                            <Column sortable={true} field="Edad" header="Edad" filter filterType="number" filterPlaceholder="Edad"></Column>
                             <Column header="Acciones" body={UserBtns}></Column>
                         </DataTable>
                     </div>
-                    <Button onClick={queryGetDatos}>Cargar datos</Button>
                 </div> 
                 <div className="changePwdDialog">
                     <h1>Modificar contraseña</h1>

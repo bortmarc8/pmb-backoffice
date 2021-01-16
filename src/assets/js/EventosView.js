@@ -1,4 +1,5 @@
 import '../css/UsuariosView.css';
+import React, { useState, useEffect } from 'react';
 import { Component } from 'react';
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
@@ -11,20 +12,27 @@ class EventosView extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            events: []
+            events: [],
+            row: undefined
         }
     }
-  
+
+    queryGetDatos = () => {
+        axios
+        .get('https://localhost:44342/api/Eventos/')
+        .then(res => {
+            //console.log(res.data);
+            this.setState({events: res.data}, () => console.log(res.data));
+        });
+    }
+
+    componentDidMount() {
+        this.queryGetDatos();
+    }
+
     render() {
         
-        const queryGetDatos = () => {
-            axios
-            .get('https://localhost:44342/api/Eventos/')
-            .then(res => {
-                //console.log(res.data);
-                this.setState({events: res.data}, () => console.log(res.data));
-            });
-        }
+        
 
         const queryPostDatos = () => {
             axios
@@ -39,26 +47,21 @@ class EventosView extends Component {
                 }
             )
             .then(function (response) {
-                queryGetDatos();
+                //this.queryGetDatos();
                 console.log(response);
             });
         }
 
-        const queryPutDatos = (rowData) => {
-            axios
-            .put("https://localhost:44342/api/Eventos/", 
-                {
-                    "EventoId": rowData.EventoId,
-                    "EquipoLocal": document.getElementById("equipoLocal").value,
-                    "EquipoVisitante": document.getElementById("equipoVisitante").value,
-                    "Goles": document.getElementById("goles").value,
-                    "Fecha": rowData.Fecha,
-                    "Mercados": null
-                }
-            )
-            .then(function (response) {
-                queryGetDatos();
-                console.log(response);
+        const queryPutDatos = () => {
+            console.log(this.state.row.EventoId);
+            const res = axios.post('https://localhost:44342/api/Eventos/',
+            {
+                "EventoId": this.state.row.EventoId,
+                "EquipoLocal": this.state.row.EquipoLocal,
+                "EquipoVisitante": this.state.row.EquipoVisitante,
+                "Goles": this.state.row.Goles,
+                "Fecha": document.getElementById("fecha_mod").value,
+                "Mercados": null
             });
         }
 
@@ -66,7 +69,7 @@ class EventosView extends Component {
             axios
             .delete('https://localhost:44342/api/Eventos/?id=' + id)
             .then(response => {
-                queryGetDatos();
+                //this.queryGetDatos();
             });
         }
 
@@ -99,9 +102,10 @@ class EventosView extends Component {
         }
 
         const handleEditDate = (rowData) => {
-            console.log(rowData);
+            this.setState({row: rowData});
+
             if (document.getElementsByClassName("editDate")[0].style.display == "flex") {
-                queryPutDatos(rowData);
+                console.log(rowData);
                 document.getElementsByClassName("editDate")[0].style.display = "none";
                 document.getElementById("fecha_mod").value = undefined;
 
@@ -121,13 +125,13 @@ class EventosView extends Component {
 
                 <div className="table-wrapper">
                     <div className="fl-table">
-                        <DataTable class="fl-table" value={this.state.events}>
+                        <DataTable class="fl-table" paginator rows={13} value={this.state.events}>
                             <Column sortable={true} field="EventoId" header="ID Evento" filter filterPlaceholder="ID Evento"></Column>
                             <Column sortable={true} field="EquipoLocal" header="Equipo local" filter filterPlaceholder="Equipo local"></Column>
                             <Column sortable={true} field="EquipoVisitante" header="Equipo visitante" filter filterPlaceholder="Equipo visitante"></Column>
                             <Column sortable={true} field="Goles" header="Goles"></Column>
                             <Column sortable={true} field="Fecha" filter header="Fecha"></Column>
-                            <Column sortable={true} body={DeleteBtns,DateBtns} header="Eliminar"></Column>
+                            <Column sortable={true} body={DateBtns} header="Eliminar"></Column>
                         </DataTable>
                     </div>
                     <div className="addNewEvent">
@@ -157,7 +161,6 @@ class EventosView extends Component {
                             <button onClick={handleEditDate}>Cancelar</button>
                         </div>
                     </div>
-                    <Button onClick={queryGetDatos}>Cargar datos</Button>
                     <Button onClick={handleNewEventClick}>Nuevo Evento</Button>
                 </div>
             </div>
