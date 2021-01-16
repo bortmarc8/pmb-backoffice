@@ -1,11 +1,11 @@
 import '../css/UsuariosView.css';
-import { Component, ReactDOM } from 'react';
+import { Component } from 'react';
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 import { Button } from 'primereact/button';
 import axios from 'axios';
 import '../../../node_modules/primeicons/primeicons.css';
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 
 class MercadosView extends Component {
     
@@ -103,7 +103,7 @@ class MercadosView extends Component {
                         <br></br>
                     </div>
                     
-                    <DataTable class="fl-table" paginator rows={10} value={this.state.marketsBuffer}>
+                    <DataTable class="fl-table" paginator rows={25} value={this.state.marketsBuffer}>
                         <Column sortable={true} body={tituloMercado} header="Título"></Column>
                         <Column sortable={true} field="Tipo" header="Tipo"></Column>
                         <Column sortable={true} field="CuotaOver" header="Cuota Over"></Column>

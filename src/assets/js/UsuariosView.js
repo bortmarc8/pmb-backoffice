@@ -2,7 +2,6 @@ import '../css/UsuariosView.css';
 import { Component } from 'react';
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
-import { Button } from 'primereact/button';
 import axios from 'axios';
 
 class UsuariosView extends Component {

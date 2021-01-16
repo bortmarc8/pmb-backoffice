@@ -1,5 +1,5 @@
 import '../css/UsuariosView.css';
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Component } from 'react';
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
@@ -21,7 +21,6 @@ class EventosView extends Component {
         axios
         .get('https://localhost:44342/api/Eventos/')
         .then(res => {
-            //console.log(res.data);
             this.setState({events: res.data}, () => console.log(res.data));
         });
     }
@@ -43,13 +42,51 @@ class EventosView extends Component {
                     "EquipoVisitante": document.getElementById("equipoVisitante").value,
                     "Goles": document.getElementById("goles").value,
                     "Fecha": document.getElementById("fecha").value,
-                    "Mercados": null
+                    "Mercados": [{
+                        "MercadoId": null,
+                        "Tipo": 1.5,
+                        "CuotaOver": 1.95,
+                        "CuotaUnder": 1.95,
+                        "DineroOver": 100,
+                        "DineroUnder": 100,
+                        "EventoId": null
+                    },{
+                        "MercadoId": null,
+                        "Tipo": 2.5,
+                        "CuotaOver": 1.95,
+                        "CuotaUnder": 1.95,
+                        "DineroOver": 100,
+                        "DineroUnder": 100,
+                        "EventoId": null
+                    },{
+                        "MercadoId": null,
+                        "Tipo": 3.5,
+                        "CuotaOver": 1.95,
+                        "CuotaUnder": 1.95,
+                        "DineroOver": 100,
+                        "DineroUnder": 100,
+                        "EventoId": null
+                    }]
                 }
             )
             .then(function (response) {
-                //this.queryGetDatos();
-                console.log(response);
+
             });
+            
+        }
+
+        const queryPostMercados = () => {
+            axios
+            .post("https://localhost:44342/api/Mercados/", 
+                {
+                    "EventoId": null,
+                    "EquipoLocal": document.getElementById("equipoLocal").value,
+                    "EquipoVisitante": document.getElementById("equipoVisitante").value,
+                    "Goles": document.getElementById("goles").value,
+                    "Fecha": document.getElementById("fecha").value,
+                    "Mercados": null
+                }
+            )
         }
 
         const queryPutDatos = () => {
@@ -62,6 +99,14 @@ class EventosView extends Component {
                 "Goles": this.state.row.Goles,
                 "Fecha": document.getElementById("fecha_mod").value,
                 "Mercados": null
+            }).then(response => {
+                if (document.getElementsByClassName("editDate")[0].style.display == "flex") {
+                    document.getElementsByClassName("editDate")[0].style.display = "none";
+                    document.getElementById("fecha_mod").value = undefined;
+    
+                } else {
+                    document.getElementsByClassName("editDate")[0].style.display = "flex";
+                }
             });
         }
 
@@ -69,7 +114,7 @@ class EventosView extends Component {
             axios
             .delete('https://localhost:44342/api/Eventos/?id=' + id)
             .then(response => {
-                //this.queryGetDatos();
+                this.queryGetDatos();
             });
         }
 
@@ -78,12 +123,6 @@ class EventosView extends Component {
                 <Button icon="pi pi-pencil" className="btn-modify-pwd" onClick={()=>handleEditDate(rowData)}></Button>
                 <div style={{height: '5px'}}></div>
                 <Button icon="pi pi-trash" className="btn-delete-user" onClick={()=>handleDeleteClick(rowData)}></Button>
-            </div>);
-        }
-
-        const DeleteBtns = (rowData) => {
-            return (<div>
-                    <button className="btn-delete-user" onClick={()=>handleDeleteClick(rowData)}></button>
             </div>);
         }
 
